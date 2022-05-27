@@ -1,7 +1,7 @@
-library identifier: 'jenkins-share-library@master', retriever: modernSCM(
-  [$class: 'GitSCMSource',
-   remote: 'git@github.com:return200-ok/jenkins-share-library.git',
-   credentialsId: 'github-caolv'])
+// library identifier: 'jenkins-share-library@master', retriever: modernSCM(
+//   [$class: 'GitSCMSource',
+//    remote: 'git@github.com:return200-ok/jenkins-share-library.git',
+//    credentialsId: 'github-caolv'])
 pipeline {
   agent any
   options {
@@ -10,8 +10,11 @@ pipeline {
   stages {
     stage('Scan') {
       steps {
-        withSonarQubeEnv(installationName: 'sq1') { 
-          sh './mvnw clean sonar:sonar'
+        // withSonarQubeEnv(installationName: 'sq1') { 
+        //   sh './mvnw clean sonar:sonar'
+        // }
+        scripts{
+          echo 'foo bar'
         }
       }
     }
