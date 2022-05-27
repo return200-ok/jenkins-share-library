@@ -2,6 +2,15 @@
 //   [$class: 'GitSCMSource',
 //    remote: 'git@github.com:return200-ok/jenkins-share-library.git',
 //    credentialsId: 'github-caolv'])
+
+library identifier: 'jenkins-share-library@master', retriever: modernSCM(
+  github(traits: [gitHubBranchDiscovery(1), 
+  gitHubPullRequestDiscovery(1), 
+  gitHubForkDiscovery(strategyId: 1, trust: gitHubTrustPermissions())], 
+  credentialsId: 'github-caolv', 
+  repository: 'jenkins-share-library', 
+  repoOwner: 'return200-ok'))
+
 pipeline {
   agent any
   options {
