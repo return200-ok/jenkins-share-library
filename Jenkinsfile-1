@@ -21,7 +21,7 @@ pipeline {
         }
       }
     }
-    stage('Checkout') {
+    stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sq1') { 
               sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=java-web-app'
