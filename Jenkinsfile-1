@@ -13,7 +13,7 @@ pipeline {
         // withSonarQubeEnv(installationName: 'sq1') { 
         //   sh './mvnw clean sonar:sonar'
         // }
-        scripts{
+        script{
           echo 'foo bar'
         }
       }
