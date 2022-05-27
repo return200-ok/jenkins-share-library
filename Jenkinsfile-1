@@ -24,7 +24,9 @@ pipeline {
         // }
         script{
           echo 'foo bar'
-          checkOutFrom(branches:"develop", repo_url:"https://bitbucket_biplus@bitbucket.org/bipluscode/mygo-agent.git", CREDENTIAL_ID: "d281bfc1-1637-4c18-a8a2-cf3567ce567f")
+          checkOutFrom(branches:"master", 
+          repo_url:"https://github.com/return200-ok/java-web-app.git", 
+          CREDENTIAL_ID: "github-caolv")
         }
       }
     }
