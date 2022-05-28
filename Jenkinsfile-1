@@ -31,5 +31,12 @@ pipeline {
             }
       }
     }
+    stage('Dockerize'){
+      steps{
+        script{
+          dockerizeApplication(service:"java-web-app", DOCKER_REGISTRY_URL:"", REGISTRY_CREDENTIAL:"")
+        }
+      }
+    }
   }
 }
