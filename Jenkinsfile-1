@@ -34,7 +34,8 @@ pipeline {
     stage('Dockerize'){
       steps{
         script{
-          dockerizeApplication(service:"java-web-app", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
+          // dockerizeApplication(service:"java-web-app", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
+          echo "test"
         }
       }
     }
