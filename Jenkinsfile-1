@@ -41,7 +41,7 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          deployApplocation(jobname:"java-web-app", imageVersion:"1.0")
+          deployApplication(jobname:"java-web-app", imageVersion:"1.0")
         }
       }
     }
