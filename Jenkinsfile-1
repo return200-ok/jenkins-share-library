@@ -11,33 +11,33 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
-  stages {
-    stage('Checkout') {
-      steps {
-        script{
-          echo 'foo bar'
-          checkOutFrom(branches:"master", 
-          repo_url:"https://github.com/return200-ok/java-web-app.git")
-        }
-      }
-    }
-    stage('Scan') {
-      agent {
-        docker { image 'maven:3.8.1-adoptopenjdk-11' }
-      }
-      steps {
-        withSonarQubeEnv(installationName: 'sq1') { 
-              sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=java-web-app'
-            }
-      }
-    }
-    stage('Dockerize'){
-      steps{
-        script{
-          dockerizeApplication(service:"java-web-app", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
-        }
-      }
-    }
+  // stages {
+  //   stage('Checkout') {
+  //     steps {
+  //       script{
+  //         echo 'foo bar'
+  //         checkOutFrom(branches:"master", 
+  //         repo_url:"https://github.com/return200-ok/java-web-app.git")
+  //       }
+  //     }
+  //   }
+  //   stage('Scan') {
+  //     agent {
+  //       docker { image 'maven:3.8.1-adoptopenjdk-11' }
+  //     }
+  //     steps {
+  //       withSonarQubeEnv(installationName: 'sq1') { 
+  //             sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=java-web-app'
+  //           }
+  //     }
+  //   }
+  //   stage('Dockerize'){
+  //     steps{
+  //       script{
+  //         dockerizeApplication(service:"java-web-app", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
+  //       }
+  //     }
+  //   }
     stage('Deploy'){
       steps{
         script{
