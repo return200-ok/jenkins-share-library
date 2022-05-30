@@ -16,9 +16,10 @@ sed -ie "s|IMAGE_VERSION|${image_version}|g" ${deployment_file}
 # kubectl apply -f ${deployment_file}
 cat ${deployment_file}
 
-if [ $? -eq 0 ];then
-echo "Deployment Done"
+if [ $? -eq 0 ]; # was last command successful?
+then
+    echo "Deployment Done"
 else
-echo "Deployment False"
+    echo "Deployment False"
 exit 1
 fi
