@@ -1,7 +1,7 @@
 #!/bin/bash
 jobname=$1
-deployment_file=$(./parseFile.sh $jobname)
 image_version=$2
+deployment_file=$(./parseFile.sh $jobname)
 ./imageVerify.sh $jobname $image_version
 echo ${deployment_file} ${image_version} 
 echo "Starting deploy application on k8s"
