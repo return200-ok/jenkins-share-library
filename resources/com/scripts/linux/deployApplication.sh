@@ -4,18 +4,14 @@ parseFile(){
 
 verify_image_match(){
     image_require=$(grep -w $1 jobScript.map | awk '{print $3}')
-    a = false
     for image in $image_require
     do
         if [[ $2 == *"$image"* ]];then
-            a = true
+            return 0
+        else
+            return 1
         fi
     done
-    if $a; then
-        return 0
-    else 
-        return 1
-    fi
 }
 
 deployApplication(){
