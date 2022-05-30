@@ -1,6 +1,6 @@
 def call(Map config = [:]) {
     loadMapFile(name: 'jobScript.map')
     loadLinuxScript(name: 'imageVerify.sh')
-    loadLinuxScript(name: 'deployApplication.sh')
-    sh "./deployApplication.sh ${config.method} ${config.enviromentDeploy} ${config.jobName} ${config.imageVersion}"
+    loadLinuxScript(name: 'deployKubernetes.sh')
+    sh "./deployKubernetes.sh ${config.jobName} ${config.imageVersion}"
 }
