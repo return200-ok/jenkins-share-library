@@ -41,7 +41,7 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          deployApplication(jobname:"java-web-app", imageVersion:"java-web-app:1.0", deployEnviroment:"k8s")
+          deployApplication(jobName:"java-web-app", imageVersion:"java-web-app:1.0", deployEnviroment:"k8s")
         }
       }
     }
