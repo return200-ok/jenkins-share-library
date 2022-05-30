@@ -19,7 +19,7 @@ deployApplication(){
     image_version=$2
     deployEnviroment=$3
     deployment_file=$(parseFile $jobname)
-    if $(verify_image_match $jobname $image_version); then
+    if $(verify_image_match ${jobname} ${image_version}); then
         echo "Unlock the deployment"
         sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" ${deployment_file} # verify your job with current date
         echo "Reconfig image version"
