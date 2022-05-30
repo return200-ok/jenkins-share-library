@@ -4,14 +4,20 @@ parseFile(){
 
 verify_image_match(){
     image_require=$(grep -w $1 jobScript.map | awk '{print $3}')
+    a=false
     for image in $image_require
     do
-        if [[$2 == *"$image"*]];then
-            return 0
+        if [[ $2 == *"$image"* ]];then
+            a=true
         else
-            return 1
+            a=false
         fi
     done
+    if $a;then
+        return 0
+    else 
+        return 1
+    fi
 }
 
 deployApplication(){
@@ -19,7 +25,7 @@ deployApplication(){
     image_version=$2
     deployEnviroment=$3
     deployment_file=$(parseFile $jobname)
-    if $(verify_image_match ${jobname} ${image_version}); then
+    if $(verify_image_match $jobname $image_version); then
         echo "Unlock the deployment"
         sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" ${deployment_file} # verify your job with current date
         echo "Reconfig image version"
