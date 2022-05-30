@@ -1,1 +1,0 @@
-kubectl get pods -n $1
