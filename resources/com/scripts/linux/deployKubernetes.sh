@@ -14,8 +14,8 @@ echo "Deploying application"
 # cat ${deployment_file}
 
 if [ $? -eq 0 ];then
-echo "Deployment Done"
+    echo "Deployment Done"
 else
-echo "Deployment False"
-exit 1
+    echo "Deployment False"
+    exit 1
 fi
