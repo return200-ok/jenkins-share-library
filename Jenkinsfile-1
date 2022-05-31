@@ -12,12 +12,19 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   stages {
+    
     stage('Checkout') {
       steps {
         script{
-          echo 'foo bar'
           checkOutFrom(branches:"master", 
           repo_url:"https://github.com/return200-ok/java-web-app.git")
+        }
+      }
+    }
+    stage('print env'){
+      steps{
+        script{
+          sh 'printenv'
         }
       }
     }
