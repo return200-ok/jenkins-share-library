@@ -22,7 +22,7 @@ pipeline {
     stage('Checkout') {
       steps {
         script{
-          if  (env.BRANCH_NAME.equals('master')){
+          if  (env.GIT_BRANCH.equals('master')){
             env.branch="master"
           }
 
