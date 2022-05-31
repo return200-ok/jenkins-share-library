@@ -16,8 +16,8 @@ pipeline {
     stage('Checkout') {
       steps {
         script{
-          checkOutFrom(branches:"master", 
-          repo_url:"https://github.com/return200-ok/java-web-app.git")
+          checkOutFrom(branches:"$branch", 
+          repo_url:"$repoUrl")
         }
       }
     }
@@ -41,14 +41,14 @@ pipeline {
     stage('Dockerize'){
       steps{
         script{
-          dockerizeApplication(service:"java-web-app", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
+          dockerizeApplication(service:"$serviceName", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
         }
       }
     }
     stage('Deploy'){
       steps{
         script{
-          deployApplication(jobName:"java-web-app", imageVersion:"192.168.3.45:8295/java-web-app:1.0", deployEnviroment:"k8s")
+          deployApplication(jobName:"$serviceName", imageVersion:"$imageVersion", deployEnviroment:"k8s")
         }
       }
     }
