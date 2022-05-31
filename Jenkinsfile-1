@@ -19,17 +19,17 @@ pipeline {
         }
       }
     }
-    // stage('Checkout') {
-    //   steps {
-    //     script{
-    //       if  (env.GIT_BRANCH.equals(*'master'*)){
-    //         env.branch="master"
-    //       }
-    //       checkOutFrom(branches:"$branch", 
-    //       repo_url:"$GIT_URL")
-    //     }
-    //   }
-    // }
+    stage('Checkout') {
+      steps {
+        script{
+          if  (env.GIT_BRANCH.equals(*'master'*)){
+            env.branch="master"
+          }
+          checkOutFrom(branches:"$branch", 
+          repo_url:"$GIT_URL")
+        }
+      }
+    }
     // stage('Scan') {
     //   agent {
     //     docker { image 'maven:3.8.1-adoptopenjdk-11' }
