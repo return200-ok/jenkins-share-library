@@ -11,6 +11,9 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
+  environment {
+     BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+  }
   stages {
     stage('print env'){
       steps{
@@ -42,6 +45,7 @@ pipeline {
           echo "gitlabBefore: ${env.gitlabBefore}"
           echo "gitlabAfter: ${env.gitlabAfter}"
           echo "gitlabTriggerPhrase: ${env.gitlabTriggerPhrase}"
+          echo "$BRANCH_NAME"
         }
       }
     }
