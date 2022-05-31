@@ -26,23 +26,23 @@ pipeline {
         }
       }
     }
-    // stage('Scan') {
-    //   agent {
-    //     docker { image 'maven:3.8.1-adoptopenjdk-11' }
-    //   }
-    //   steps {
-    //     withSonarQubeEnv(installationName: 'sq1') { 
-    //           sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=java-web-app'
-    //         }
-    //   }
-    // }
-    // stage('Dockerize'){
-    //   steps{
-    //     script{
-    //       dockerizeApplication(service:"$serviceName", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
-    //     }
-    //   }
-    // }
+    stage('Scan') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps {
+        withSonarQubeEnv(installationName: 'sq1') { 
+              sh "mvn clean verify sonar:sonar -Dsonar.projectKey=$JOB_NAME"
+            }
+      }
+    }
+    stage('Dockerize'){
+      steps{
+        script{
+          dockerizeApplication(service:"$JOB_NAME", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
+        }
+      }
+    }
     // stage('Deploy'){
     //   steps{
     //     script{
