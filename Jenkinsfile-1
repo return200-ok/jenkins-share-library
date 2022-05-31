@@ -22,9 +22,11 @@ pipeline {
     stage('Checkout') {
       steps {
         script{
-          if  (env.GIT_BRANCH.equals(*'master'*)){
-            env.branch="master"
-          }
+          sh '''
+          if [[ $GIT_BRANCH == *"master"* ]];then
+            branch="master"
+          fi
+          '''
           checkOutFrom(branches:"$branch", repo_url:"$GIT_URL")
         }
       }
