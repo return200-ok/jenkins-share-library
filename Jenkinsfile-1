@@ -27,7 +27,6 @@ pipeline {
           }
           checkOutFrom(branches:"$branch", 
           repo_url:"$GIT_URL")
-          echo "foo bar#3"
         }
       }
     }
