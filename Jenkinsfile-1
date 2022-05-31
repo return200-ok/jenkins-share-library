@@ -23,7 +23,7 @@ pipeline {
       steps {
         script{
           sh '''
-          if [[ $GIT_BRANCH == *"master"* ]];then
+          if [[ ${GIT_BRANCH} == *"master"* ]];then
             branch="master"
           fi
           '''
