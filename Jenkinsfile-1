@@ -22,8 +22,15 @@ pipeline {
     stage('Checkout') {
       steps {
         script{
+<<<<<<< HEAD
           checkOutFrom(branches:"$GIT_BRANCH", 
           repo_url:"$GIT_URL")
+=======
+          if  (env.GIT_BRANCH.equals(*'master'*)){
+            env.branch="master"
+          }
+          checkOutFrom(branches:"$branch", repo_url:"$GIT_URL")
+>>>>>>> dev
         }
       }
     }
