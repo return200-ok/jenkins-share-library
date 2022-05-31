@@ -2,15 +2,13 @@ parseFile(){
     grep -w $1 jobScript.map | awk '{print $2}' | head -n1
 }
 
-verify_image_match(){
-    image_require=$(grep -w $1 jobScript.map | awk '{print $3}')
+verify_image_match () {
     a=false
+    image_require=$(grep -w $1 jobScript.map | awk '{print $3}')
     for image in $image_require
     do
         if [[ $2 == *"$image"* ]];then
             a=true
-        else
-            a=false
         fi
     done
     if $a;then
