@@ -15,6 +15,20 @@ pipeline {
     stage('print env'){
       steps{
         script{
+          echo $gitlabSourceRepoURL
+          echo $gitlabAfter
+          echo $gitlabTargetBranch
+          echo $gitlabSourceRepoHttpUrl
+          echo $gitlabMergeRequestLastCommit
+          echo $gitlabSourceRepoSshUrl
+          echo $gitlabSourceRepoHomepage
+          echo $gitlabBranch
+          echo $gitlabSourceBranch
+          echo $gitlabUserEmail
+          echo $gitlabBefore
+          echo $gitlabSourceRepoName
+          echo $gitlabSourceNamespace
+          echo $gitlabUserName
           sh 'printenv'
         }
       }
