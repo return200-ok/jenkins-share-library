@@ -2,8 +2,9 @@ def call() {
     loadLinuxScript(name: 'printEnvGitlab.sh')
     def x = env.GIT_URL
     switch(x){
-        case ~/(.*)gitlab(.*)/ : echo "gitlab"
-        default: log.info("value is not present")
+        case ~/(.*)gitlab(.*)/:
+            println "Version Control is GitLab"
+        break
     }
     sh "./printEnvGitlab.sh"
 }
