@@ -4,7 +4,7 @@ def call() {
     switch(x){
         case ~/(.*)gitlab(.*)/:
             println "Version Control is GitLab"
-            sh "./printEnvGitlab.sh"
+            // sh "./printEnvGitlab.sh"
             def serviceName = parseServiceName("${gitlabSourceRepoName}")
             return serviceName
         break
