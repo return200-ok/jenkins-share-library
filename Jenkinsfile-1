@@ -21,8 +21,8 @@ pipeline {
           // initEnv()
           sh 'printenv'
           echo "timeStamp: ${env.BUILD_TIMESTAMP}"
-          echo $(initEnv.getFullServiceName($gitlabSourceRepoName))
-          
+          serviceName=initEnv.getFullServiceName("${env.gitlabSourceRepoName}")
+          echo "$serviceName"
         }
       }
     }
