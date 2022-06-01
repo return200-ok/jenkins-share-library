@@ -4,7 +4,11 @@ parseFile(){
 
 verify_image_match () {
     image_require=$(awk -v service="$1" '$1==service {print $3}' jobScript.map)
-    return 0
+    if [[ $2 == *"$image_require"* ]]; then
+        return 0
+    else 
+        return 1
+    fi
 }
 
 deployApplication(){
