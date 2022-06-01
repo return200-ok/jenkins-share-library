@@ -19,7 +19,6 @@ pipeline {
       steps{
         script{
           initEnv()
-          
         }
       }
     }
