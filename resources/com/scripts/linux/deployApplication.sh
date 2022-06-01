@@ -39,4 +39,4 @@ deployApplication(){
     fi
 }
 
-verify_image_match $1 $2 
+deployApplication $1 $2 $3
