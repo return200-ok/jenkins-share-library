@@ -1,5 +1,10 @@
 def call() {
     loadLinuxScript(name: 'printEnvGitlab.sh')
+    def x = env.GIT_URL
+    switch(x){
+    case *"gitlab"* : echo "gitlab"
+    default: log.info("value is not present")
+    }
     sh "./printEnvGitlab.sh"
 }
 def parseServiceName(gitlabSourceRepoName) {

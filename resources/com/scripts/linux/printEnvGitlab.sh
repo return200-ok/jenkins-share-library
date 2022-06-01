@@ -29,6 +29,4 @@ printEnvGitlab(){
   echo   "gitlabAfter: $gitlabAfter"
   echo   "gitlabTriggerPhrase: $gitlabTriggerPhrase"
 }
-
-
 printEnvGitlab
