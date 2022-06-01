@@ -4,12 +4,12 @@ def call() {
     switch(x){
         case ~/(.*)gitlab(.*)/:
             println "Version Control is GitLab"
+            sh "./printEnvGitlab.sh"
         case ~/(.*)github(.*)/:
             println "Version Control is Github"
         break
         
     }
-    sh "./printEnvGitlab.sh"
 }
 def parseServiceName(gitlabSourceRepoName) {
     def lowerString = gitlabSourceRepoName.toLowerCase()
