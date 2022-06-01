@@ -18,8 +18,8 @@ pipeline {
     stage('initenv from gitlab'){
       steps{
         script{
-          initEnv()
-
+          // initEnv()
+          sh 'printenv'
           
         }
       }
