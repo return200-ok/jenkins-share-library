@@ -1,0 +1,1 @@
+grep -w $1 jobScript.map | awk '{print $2}' | head -n1
