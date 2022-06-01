@@ -15,64 +15,71 @@ pipeline {
      BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
   }
   stages {
-    stage('print env'){
+    stage('initenv from gitlab'){
       steps{
         script{
-          echo "timeStamp: ${env.BUILD_TIMESTAMP}"
-          echo "workspace: ${env.WORKSPACE}"
-          echo "buildNumber: ${env.BUILD_NUMBER}"
-          echo "gitlabBranch: ${env.gitlabBranch}"
-          echo "gitlabSourceBranch: ${env.gitlabSourceBranch}"
-          echo "gitlabActionType: ${env.gitlabActionType}"
-          echo "gitlabUserName: ${env.gitlabUserName}"
-          echo "gitlabUserEmail: ${env.gitlabUserEmail}"
-          echo "gitlabSourceRepoHomepage: ${env.gitlabSourceRepoHomepage}"
-          echo "gitlabSourceRepoName: ${env.gitlabSourceRepoName}"
-          echo "gitlabSourceRepoURL: ${env.gitlabSourceRepoURL}"
-          echo "gitlabSourceRepoSshUrl: ${env.gitlabSourceRepoSshUrl}"
-          echo "gitlabMergeRequestTitle: ${env.gitlabMergeRequestTitle}"
-          echo "gitlabMergeRequestDescription: ${env.gitlabMergeRequestDescription}"
-          echo "gitlabMergeRequestId: ${env.gitlabMergeRequestId}"
-          echo "gitlabMergeRequestState: ${env.gitlabMergeRequestState}"
-          echo "gitlabMergedByUser: ${env.gitlabMergedByUser}"
-          echo "gitlabMergeRequestAssignee: ${env.gitlabMergeRequestAssignee}"
-          echo "gitlabMergeRequestLastCommit: ${env.gitlabMergeRequestLastCommit}"
-          echo "gitlabMergeRequestTargetProjectId: ${env.gitlabMergeRequestTargetProjectId}"
-          echo "gitlabTargetBranch: ${env.gitlabTargetBranch}"
-          echo "gitlabTargetRepoName: ${env.gitlabTargetRepoName}"
-          echo "gitlabTargetNamespace: ${env.gitlabTargetNamespace}"
-          echo "gitlabTargetRepoSshUrl: ${env.gitlabTargetRepoSshUrl}"
-          echo "gitlabBefore: ${env.gitlabBefore}"
-          echo "gitlabAfter: ${env.gitlabAfter}"
-          echo "gitlabTriggerPhrase: ${env.gitlabTriggerPhrase}"
-          echo "$BRANCH_NAME"
+          initEnv()
         }
       }
     }
-    stage('Checkout') {
-      steps {
-        script{
-          checkOutFrom(branches:"master", repo_url:"$GIT_URL")
-        }
-      }
-    }
-    stage('Scan') {
-      agent {
-        docker { image 'maven:3.8.1-adoptopenjdk-11' }
-      }
-      steps {
-        withSonarQubeEnv(installationName: 'sq1') { 
-              sh "mvn clean verify sonar:sonar -Dsonar.projectKey=$JOB_NAME"
-            }
-      }
-    }
-    stage('Dockerize'){
-      steps{
-        script{
-          dockerizeApplication(service:"$JOB_NAME", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
-        }
-      }
-    }
+    // stage('print env'){
+    //   steps{
+    //     script{
+    //       echo "timeStamp: ${env.BUILD_TIMESTAMP}"
+    //       echo "workspace: ${env.WORKSPACE}"
+    //       echo "buildNumber: ${env.BUILD_NUMBER}"
+    //       echo "gitlabBranch: ${env.gitlabBranch}"
+    //       echo "gitlabSourceBranch: ${env.gitlabSourceBranch}"
+    //       echo "gitlabActionType: ${env.gitlabActionType}"
+    //       echo "gitlabUserName: ${env.gitlabUserName}"
+    //       echo "gitlabUserEmail: ${env.gitlabUserEmail}"
+    //       echo "gitlabSourceRepoHomepage: ${env.gitlabSourceRepoHomepage}"
+    //       echo "gitlabSourceRepoName: ${env.gitlabSourceRepoName}"
+    //       echo "gitlabSourceRepoURL: ${env.gitlabSourceRepoURL}"
+    //       echo "gitlabSourceRepoSshUrl: ${env.gitlabSourceRepoSshUrl}"
+    //       echo "gitlabMergeRequestTitle: ${env.gitlabMergeRequestTitle}"
+    //       echo "gitlabMergeRequestDescription: ${env.gitlabMergeRequestDescription}"
+    //       echo "gitlabMergeRequestId: ${env.gitlabMergeRequestId}"
+    //       echo "gitlabMergeRequestState: ${env.gitlabMergeRequestState}"
+    //       echo "gitlabMergedByUser: ${env.gitlabMergedByUser}"
+    //       echo "gitlabMergeRequestAssignee: ${env.gitlabMergeRequestAssignee}"
+    //       echo "gitlabMergeRequestLastCommit: ${env.gitlabMergeRequestLastCommit}"
+    //       echo "gitlabMergeRequestTargetProjectId: ${env.gitlabMergeRequestTargetProjectId}"
+    //       echo "gitlabTargetBranch: ${env.gitlabTargetBranch}"
+    //       echo "gitlabTargetRepoName: ${env.gitlabTargetRepoName}"
+    //       echo "gitlabTargetNamespace: ${env.gitlabTargetNamespace}"
+    //       echo "gitlabTargetRepoSshUrl: ${env.gitlabTargetRepoSshUrl}"
+    //       echo "gitlabBefore: ${env.gitlabBefore}"
+    //       echo "gitlabAfter: ${env.gitlabAfter}"
+    //       echo "gitlabTriggerPhrase: ${env.gitlabTriggerPhrase}"
+    //       echo "$BRANCH_NAME"
+    //     }
+    //   }
+    // }
+    // stage('Checkout') {
+    //   steps {
+    //     script{
+    //       checkOutFrom(branches:"master", repo_url:"$GIT_URL")
+    //     }
+    //   }
+    // }
+    // stage('Scan') {
+    //   agent {
+    //     docker { image 'maven:3.8.1-adoptopenjdk-11' }
+    //   }
+    //   steps {
+    //     withSonarQubeEnv(installationName: 'sq1') { 
+    //           sh "mvn clean verify sonar:sonar -Dsonar.projectKey=$JOB_NAME"
+    //         }
+    //   }
+    // }
+    // stage('Dockerize'){
+    //   steps{
+    //     script{
+    //       dockerizeApplication(service:"$JOB_NAME", DOCKER_REGISTRY_URL:"http://192.168.3.45:8295", REGISTRY_CREDENTIAL:"biplus-nexus-docker-cre")
+    //     }
+    //   }
+    // }
     // stage('Deploy'){
     //   steps{
     //     script{
