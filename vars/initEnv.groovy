@@ -5,9 +5,13 @@ def call() {
         case ~/(.*)gitlab(.*)/:
             println "Version Control is GitLab"
             sh "./printEnvGitlab.sh"
+            def serviceName = parseServiceName("$gitlabSourceRepoName")
         break
         case ~/(.*)github(.*)/:
             println "Version Control is Github"
+        break
+        case ~/(.*)bitbucket(.*)/:
+            println "Version Control is Bitbucket"
         break
         
     }
