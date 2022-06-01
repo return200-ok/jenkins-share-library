@@ -18,13 +18,13 @@ pipeline {
     stage('initenv from gitlab'){
       steps{
         script{
-          // initEnv()
+          initEnv()
           sh 'printenv'
           echo "timeStamp: ${env.BUILD_TIMESTAMP}"
           serviceName=initEnv.parseServiceName("${env.gitlabSourceRepoName}")
-          echo "$serviceName"
+          echo "service name: $serviceName"
 
-          
+
         }
       }
     }
