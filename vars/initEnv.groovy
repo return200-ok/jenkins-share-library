@@ -5,6 +5,7 @@ def call() {
         case ~/(.*)gitlab(.*)/:
             println "Version Control is GitLab"
             sh "./printEnvGitlab.sh"
+        break
         case ~/(.*)github(.*)/:
             println "Version Control is Github"
         break
