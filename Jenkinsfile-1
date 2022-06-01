@@ -19,8 +19,8 @@ pipeline {
       steps{
         script{
           initEnv()
-          // serviceName=initEnv.parseServiceName("${env.gitlabSourceRepoName}")
-          // echo "service name: $serviceName"   
+          serviceName=initEnv.parseServiceName("${env.gitlabSourceRepoName}")
+          echo "service name: $serviceName"   
           
                  
         }
