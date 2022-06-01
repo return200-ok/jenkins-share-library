@@ -23,6 +23,8 @@ pipeline {
           echo "timeStamp: ${env.BUILD_TIMESTAMP}"
           serviceName=initEnv.parseServiceName("${env.gitlabSourceRepoName}")
           echo "$serviceName"
+
+          
         }
       }
     }
