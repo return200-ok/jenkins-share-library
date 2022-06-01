@@ -1,6 +1,6 @@
 def call() {
-    loadLinuxScript(name: 'initEnviroment.sh')
-    sh "./initEnviroment.sh"
+    loadLinuxScript(name: 'printEnvGitlab.sh')
+    sh "./printEnvGitlab.sh"
 }
 def parseServiceName(gitlabSourceRepoName) {
     def lowerString = gitlabSourceRepoName.toLowerCase()
