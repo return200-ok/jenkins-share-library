@@ -20,6 +20,7 @@ pipeline {
         script{
           // initEnv()
           sh 'printenv'
+          echo "timeStamp: ${env.BUILD_TIMESTAMP}"
           
         }
       }
