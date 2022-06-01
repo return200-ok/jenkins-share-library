@@ -3,7 +3,8 @@
 //     sh "./initEnviroment.sh"
 // }
 def parseServiceName(gitlabSourceRepoName) {
-    def serviceName = gitlabSourceRepoName.toLowerCase().trim()
-    // def serviceName = lowerServiceName.trim() 
+    def lowerString = gitlabSourceRepoName.toLowerCase()
+    def trimString = lowerString.trim() 
+    def serviceName = trimString.replace(' ', '')
     return serviceName
 }
