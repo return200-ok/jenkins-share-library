@@ -5,6 +5,6 @@
 def parseServiceName(gitlabSourceRepoName) {
     def lowerString = gitlabSourceRepoName.toLowerCase()
     def trimString = lowerString.trim() 
-    def serviceName = trimString.replace(' ', '')
+    def serviceName = trimString.replace(' ', '-')
     return serviceName
 }
