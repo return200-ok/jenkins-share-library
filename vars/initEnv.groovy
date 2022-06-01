@@ -4,7 +4,10 @@ def call() {
     switch(x){
         case ~/(.*)gitlab(.*)/:
             println "Version Control is GitLab"
+        case ~/(.*)github(.*)/:
+            println "Version Control is Github"
         break
+        
     }
     sh "./printEnvGitlab.sh"
 }
