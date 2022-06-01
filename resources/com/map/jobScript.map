@@ -1,4 +1,4 @@
 job-name deploy-file image-version
 
 test-job ./k8s-manifest/mygo-agent/deployment.yaml 192.168.3.45:8395/mygo-agent
-java-web-app java-web-app.deployment.yaml 192.168.3.45:8395/java-web-app:1.0
+java-web-app java-web-app-deployment.yaml java-web-app
