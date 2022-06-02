@@ -13,6 +13,8 @@ def call() {
         break
         case ~/(.*)bitbucket(.*)/:
             println "Version Control is Bitbucket"
+            def serviceName = parseServiceName("${bitbucket_repository_name}")
+            return serviceName
         break
         
     }
