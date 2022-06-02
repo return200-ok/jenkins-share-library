@@ -4,7 +4,7 @@ parseFile(){
 
 verify_image_match () {
     image_require=$(awk -v service="$1" '$1==service {print $3}' jobScript.map)
-    if [[ $2 == *"$image_require"* ]]; then
+    if [[ "$2" == *"$image_require"* ]]; then
         return 0
     else 
         return 1
