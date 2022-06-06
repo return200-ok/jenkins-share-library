@@ -1,0 +1,77 @@
+library identifier: 'jenkins-share-library@master', retriever: modernSCM(
+  github(traits: [gitHubBranchDiscovery(1), 
+  gitHubPullRequestDiscovery(1), 
+  gitHubForkDiscovery(strategyId: 1, trust: gitHubTrustPermissions())], 
+  credentialsId: 'github-caolv', 
+  repository: 'jenkins-share-library', 
+  repoOwner: 'return200-ok'))
+
+pipeline {
+  agent any
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  environment {
+     BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+     serviceName = parseServiceName()
+     DOCKER_REGISTRY_URL = "http://192.168.3.45:8295"
+     REGISTRY_CREDENTIAL = "biplus-nexus-docker-cre"
+     imageName = "192.168.3.45:8395/${serviceName}-${BRANCH_NAME}"
+
+  }
+  stages {
+    stage('Pipeline Info'){
+      steps{
+        script{
+          echo "Service name: $serviceName"
+        }
+        
+      }
+    }
+    
+    stage('Checkout') {
+      steps {
+        script{
+          checkOutFrom(branches:"$BRANCH_NAME", repo_url:"$GIT_URL")
+        }
+      }
+    }
+    stage('Scan') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps {
+        withSonarQubeEnv(installationName: 'sq1') { 
+          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=$JOB_NAME"
+        }
+      }
+    }
+    stage('buildMavenApp'){
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps{
+        script{
+          buildMavenApp()
+          env.imageTag= sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true)
+        }
+      }
+    }
+    stage('Dockerize'){
+      steps{
+        script{
+          dockerizeApplication(serviceName:"$serviceName-${BRANCH_NAME}", DOCKER_REGISTRY_URL:"$DOCKER_REGISTRY_URL", REGISTRY_CREDENTIAL:"$REGISTRY_CREDENTIAL")
+        }
+      }
+    }
+    stage('Deploy'){
+      steps{
+        script{
+          env.imageVersion="$imageName:$imageTag"
+          env.deployEnviroment="k8s"
+          deployApplication(jobName:"$serviceName", imageVersion:"$imageVersion", deployEnviroment:"$deployEnviroment")
+        }
+      }
+    }
+  }
+}
