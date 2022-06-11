@@ -13,7 +13,7 @@ pipeline {
      serviceName = parseServiceName()
      DOCKER_REGISTRY_URL = "https://nexus.biplus.com.vn"
      REGISTRY_CREDENTIAL = "biplus-nexus-docker-cre"
-     imageName = "nexus.biplus.com.vn/${serviceName}-${BRANCH_NAME}"
+     imageName = "nexus.biplus.com.vn/${serviceName}-${branchName}"
      repoUrl="${bitbucket_repository_links_html_href}.git"
 
   }
@@ -26,16 +26,16 @@ pipeline {
         }
       }
     }
-    // stage('Scan') {
-    //   agent {
-    //     docker { image 'maven:3.8.1-adoptopenjdk-11' }
-    //   }
-    //   steps {
-    //     withSonarQubeEnv(installationName: 'sq1') { 
-    //       sh "mvn clean verify sonar:sonar -Dsonar.projectKey=$serviceName"
-    //     }
-    //   }
-    // }
+    stage('Scan') {
+      agent {
+        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      }
+      steps {
+        withSonarQubeEnv(installationName: 'sq1') { 
+          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=$serviceName"
+        }
+      }
+    }
     stage('buildMavenApp'){  
       
       steps{ 
