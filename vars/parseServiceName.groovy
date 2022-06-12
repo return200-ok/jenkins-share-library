@@ -5,16 +5,16 @@ def call() {
         case ~/(.*)gitlab(.*)/:
             println "Version Control is GitLab"
             // sh "./printEnvGitlab.sh"
-            def serviceName = parseServiceName("${gitlabSourceRepoName}")
-            return serviceName
+            env.serviceName = parseServiceName("${gitlabSourceRepoName}")
+            // return serviceName
         break
         case ~/(.*)github(.*)/:
             println "Version Control is Github"
         break
         case ~/(.*)bitbucket(.*)/:
             println "Version Control is Bitbucket"
-            def serviceName = parseServiceName("${bitbucket_repository_name}")
-            return serviceName
+            env.serviceName = parseServiceName("${bitbucket_repository_name}")
+            // return serviceName
         break
         
     }
