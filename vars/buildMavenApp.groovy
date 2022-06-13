@@ -1,6 +1,6 @@
 def call() {
     sh 'mvn clean package'
-    dir('target'){
-        deleteDir()
-    }
+    // dir('target'){
+    //     deleteDir()
+    // }
 }
