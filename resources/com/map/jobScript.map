@@ -2,3 +2,11 @@ job-name deploy-file image-version
 
 test-job ./k8s-manifest/mygo-agent/deployment.yaml 192.168.3.45:8395/mygo-agent
 java-web-app java-web-app-deployment.yaml java-web-app
+
+bipower-client ./k8s-manifest/bipower-client/deployment.yaml nexus.biplus.com.vn/bipower-client
+bipower-config ./k8s-manifest/bipower-config/deployment.yaml nexus.biplus.com.vn/bipower-config
+bipower-core ./k8s-manifest/bipower-core/deployment.yaml nexus.biplus.com.vn/bipower-core-tienhm
+bipower-data ./k8s-manifest/bipower-data/deployment.yaml nexus.biplus.com.vn/bipower-data-tienhm
+bipower-gateway ./k8s-manifest/bipower-gateway/deployment.yaml nexus.biplus.com.vn/bipower-gateway-tienhm
+bipower-service ./k8s-manifest/bipower-service/deployment.yaml nexus.biplus.com.vn/bipower-service
+bipower-webapp ./k8s-manifest/bipower-webapp/deployment.yaml nexus.biplus.com.vn/bipower-webapp
