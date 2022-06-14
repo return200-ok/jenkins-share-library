@@ -1,0 +1,52 @@
+library identifier: 'jenkins-share-library@master', retriever: modernSCM(
+  github(traits: [gitHubBranchDiscovery(1), 
+  gitHubPullRequestDiscovery(1), 
+  gitHubForkDiscovery(strategyId: 1, trust: gitHubTrustPermissions())], 
+  credentialsId: 'github-caolv', 
+  repository: 'jenkins-share-library', 
+  repoOwner: 'return200-ok'))
+
+pipeline {
+  agent any
+  tools {
+      maven 'maven-instance'
+  }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  environment {
+     branchName = "${bitbucket_push_changes_0_new_name}"
+     serviceName = parseServiceName()
+     DOCKER_REGISTRY_URL = "https://nexus.biplus.com.vn"
+     REGISTRY_CREDENTIAL = "biplus-nexus-docker-cre"
+     imageName = "nexus.biplus.com.vn/${serviceName}-${branchName}"
+     repoUrl="${bitbucket_repository_links_html_href}.git"
+
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        script{
+          sh 'printenv'
+          checkOutFrom(branches:"$branchName", CREDENTIAL_ID:"d281bfc1-1637-4c18-a8a2-cf3567ce567f", repo_url:"$repoURL")
+        }
+      }
+    }
+    stage('Dockerize'){
+      steps{
+        script{
+          dockerizeApplication(serviceName:"$serviceName-${branchName}", DOCKER_REGISTRY_URL:"$DOCKER_REGISTRY_URL", REGISTRY_CREDENTIAL:"$REGISTRY_CREDENTIAL")
+        }
+      }
+    }
+    stage('Deploy'){
+      steps{
+        script{
+          env.imageVersion="$imageName:$imageTag"
+          env.deployEnviroment="k8s"
+          deployApplication(jobName:"$serviceName", imageVersion:"$imageVersion", deployEnviroment:"$deployEnviroment")
+        }
+      }
+    }
+  }
+}
