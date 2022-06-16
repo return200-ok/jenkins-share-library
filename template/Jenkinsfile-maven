@@ -43,11 +43,17 @@ pipeline {
       }
     }
     stage('buildMavenApp'){  
-      
       steps{ 
         script{ 
           buildMavenApp()
           env.imageTag= sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true)
+        }
+      }
+    }
+    stage('deployArtifacts'){
+      steps{
+        script{
+          pushArtifacts()
         }
       }
     }
