@@ -17,9 +17,9 @@ pipeline {
   environment {
      branchName = "${bitbucket_push_changes_0_new_name}"
      serviceName = parseServiceName()
-     DOCKER_REGISTRY_URL = "https://nexus.biplus.com.vn"
-     REGISTRY_CREDENTIAL = "biplus-nexus-docker-cre"
-     imageName = "nexus.biplus.com.vn/${serviceName}-${branchName}"
+     DOCKER_REGISTRY_URL = ""
+     REGISTRY_CREDENTIAL = ""
+     imageName = "$DOCKER_REGISTRY_URL/${serviceName}-${branchName}"
      repoUrl="${bitbucket_repository_links_html_href}.git"
 
   }
