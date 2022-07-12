@@ -14,9 +14,9 @@ pipeline {
   environment {
      BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
      serviceName = parseServiceName()
-     DOCKER_REGISTRY_URL = "http://192.168.3.45:8295"
-     REGISTRY_CREDENTIAL = "biplus-nexus-docker-cre"
-     imageName = "192.168.3.45:8395/${serviceName}-${BRANCH_NAME}"
+     DOCKER_REGISTRY_URL = ""
+     REGISTRY_CREDENTIAL = ""
+     imageName = "$DOCKER_REGISTRY_URL/${serviceName}-${BRANCH_NAME}"
 
   }
   stages {
