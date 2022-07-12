@@ -1,11 +1,2 @@
 job-name deploy-file image-version
 
-test-job ./k8s-manifest/mygo-agent 192.168.3.45:8395/mygo-agent
-
-bipower-client ./k8s-manifest/bipower-client nexus.biplus.com.vn/bipower-client
-bipower-config ./k8s-manifest/bipower-config nexus.biplus.com.vn/bipower-config
-bipower-core ./k8s-manifest/bipower-core nexus.biplus.com.vn/bipower-core-tienhm
-bipower-data ./k8s-manifest/bipower-data nexus.biplus.com.vn/bipower-data-tienhm
-bipower-gateway ./k8s-manifest/bipower-gateway nexus.biplus.com.vn/bipower-gateway-tienhm
-bipower-service ./k8s-manifest/bipower-service nexus.biplus.com.vn/bipower-service
-bipower-webapp ./k8s-manifest/bipower-webapp nexus.biplus.com.vn/bipower-webapp
