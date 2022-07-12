@@ -1,0 +1,45 @@
+pipeline {
+  agent any
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  environment {
+    DOCKER_REGISTRY = ''
+    DOCKER_CRED = ''
+    IMAGE_NAME = ''
+    IMAGE_TAG = 'latest'
+    APP_NAME = 'laravel-application'
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+      }
+    }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKER_CRED | docker login --username=_ --password-stdin $DOCKER_REGISTRY'
+      }
+    }
+    stage('Push to registry') {
+      steps {
+        sh '''
+          docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_REGISTRY/$APP_NAME/web
+          docker push $DOCKER_REGISTRY/$APP_NAME/web
+        '''
+      }
+    }
+    stage('Release the image') {
+      steps {
+        sh '''
+          kubectl apply -f $DOCKER_REGISTRY/$APP_NAME/web
+        '''
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker logout'
+    }
+  }
+}
