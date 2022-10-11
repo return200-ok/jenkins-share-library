@@ -1,5 +1,6 @@
 def call(Map config = [:]) {
     emailext (
+            attachLog: true,
             subject: "${env.SERVICE} - Build # $BUILD_NUMBER - ${currentBuild.currentResult}!",
             to: 'lenhhoxung98s@gmail.com',
             body: """ <p>${currentBuild.currentResult}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
