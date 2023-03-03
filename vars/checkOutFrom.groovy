@@ -7,3 +7,4 @@ def call(Map config = [:]) {
         userRemoteConfigs: [[credentialsId: "${config.CREDENTIAL_ID}", url: "${config.repo_url}"]]
     ]
 }
+
