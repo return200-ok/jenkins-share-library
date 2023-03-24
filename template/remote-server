@@ -1,0 +1,11 @@
+pipeline{
+    stages{
+        stage('Checking status new process'){
+            steps{
+                script{
+                    
+                }
+            }
+        }
+    }
+}
